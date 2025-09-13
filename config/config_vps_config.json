@@ -1,0 +1,44 @@
+{
+  "max_instances": 10,
+  "default_resources": {
+    "cpu_cores": 2,
+    "ram_mb": 4096,
+    "disk_gb": 50
+  },
+  "auto_scaling": {
+    "enabled": true,
+    "cpu_threshold": 80,
+    "memory_threshold": 85,
+    "disk_threshold": 90,
+    "scale_up_cooldown": 300,
+    "scale_down_cooldown": 600,
+    "min_instances": 1,
+    "max_instances": 20
+  },
+  "mt5_config": {
+    "terminal_path": "/opt/mt5",
+    "data_path": "/opt/mt5_data",
+    "max_terminals_per_instance": 5,
+    "auto_restart": true,
+    "restart_delay": 30,
+    "health_check_interval": 60
+  },
+  "monitoring": {
+    "interval_seconds": 10,
+    "history_retention_hours": 168,
+    "alert_channels": ["email", "webhook"],
+    "metrics_port": 9090
+  },
+  "backup": {
+    "enabled": true,
+    "interval_hours": 6,
+    "retention_days": 7,
+    "backup_path": "/opt/quantum/backups",
+    "compress": true
+  },
+  "network": {
+    "internal_subnet": "172.20.0.0/16",
+    "dns_servers": ["8.8.8.8", "1.1.1.1"],
+    "mtu": 1500
+  }
+}

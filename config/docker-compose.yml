@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  quantum-bridge:
+    build: .
+    container_name: quantum_t_bridge
+    restart: unless-stopped
+    ports:
+      - "5555:5555"
+      - "5556:5556"
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./models:/app/models
+      - mt5_data:/root/.wine
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=:99
+      - MT5_LOGIN=${MT5_LOGIN}
+      - MT5_PASSWORD=${MT5_PASSWORD}
+      - MT5_SERVER=${MT5_SERVER}
+      - IBM_QUANTUM_TOKEN=${IBM_QUANTUM_TOKEN}
+    networks:
+      - quantum_network
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    container_name: quantum_t_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - quantum_network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: quantum_t_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=quantum_trading
+      - POSTGRES_USER=${DB_USER:-quantum}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-quantum123}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - quantum_network
+
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: quantum_t_monitoring
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - quantum_network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: quantum_t_grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    networks:
+      - quantum_network
+
+networks:
+  quantum_network:
+    driver: bridge
+
+volumes:
+  mt5_data:
+  redis_data:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
