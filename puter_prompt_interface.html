@@ -315,7 +315,10 @@
 <body>
     <h1>Hello from Puter.js!</h1>
     <p>This HTML was generated based on your prompt.</p>
-</body>
+    <script src="https://js.putter.com/v2/"></script>
+    <script>
+        puter.ai.chat("Summarize what quantum computing does in finance",{model:  "cluade-opus-4"}).then(puter.print);
+</body
 </html>`;
             } else if (prompt.toLowerCase().includes('python')) {
                 response += `# Python code generated from prompt
