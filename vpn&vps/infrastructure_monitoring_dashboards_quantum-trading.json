@@ -1,0 +1,75 @@
+{
+  "dashboard": {
+    "title": "Quantum Trading Infrastructure",
+    "panels": [
+      {
+        "title": "VPN Latency",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "quantum_vpn_latency_ms",
+            "legendFormat": "{{broker}}"
+          }
+        ]
+      },
+      {
+        "title": "VPS Resource Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "quantum_vps_cpu_usage",
+            "legendFormat": "CPU {{instance}}"
+          },
+          {
+            "expr": "quantum_vps_memory_usage",
+            "legendFormat": "Memory {{instance}}"
+          }
+        ]
+      },
+      {
+        "title": "MT5 Trade Execution",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rate(quantum_mt5_trades_total[5m])",
+            "legendFormat": "Trades/sec"
+          }
+        ]
+      },
+      {
+        "title": "Average Execution Time",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "quantum_mt5_execution_time_ms",
+            "legendFormat": "ms"
+          }
+        ]
+      },
+      {
+        "title": "Active Connections",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "quantum_vpn_active_connections",
+            "legendFormat": "VPN Connections"
+          },
+          {
+            "expr": "quantum_vps_active_instances",
+            "legendFormat": "VPS Instances"
+          }
+        ]
+      },
+      {
+        "title": "System Uptime",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "quantum_system_uptime_seconds / 3600",
+            "legendFormat": "Hours"
+          }
+        ]
+      }
+    ]
+  }
+}
