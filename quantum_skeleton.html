@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quantum_t – Finance Quantum Toolkit (Skeleton)</title>
+  <style>
+    body{font-family:monospace;background:#111;color:#0f0;padding:2rem;}
+    pre{background:#222;padding:1rem;border:1px solid #0f0;}
+    h1,h2{color:#0f0;}
+    code{color:#ff0;}
+  </style>
+</head>
+<body>
+
+<h1>Quantum_t – Core Finance Quantum Skeleton</h1>
+<p>Copy this entire folder structure to your local <code>Quantum_t/</code> root.  
+   <strong>Upload to GitHub → commit → push.</strong>  
+   All files are <u>empty placeholders</u> – just drop your code in.</p>
+
+<hr/>
+
+<h2>Folder Tree (copy-paste into terminal)</h2>
+<pre>
+mkdir -p Quantum_t/{core,api,cli,infra,tests,examples,docs}
+touch Quantum_t/{README.md,.gitignore,LICENSE}
+touch Quantum_t/core/{__init__.py,portfolio.py,option_pricing.py,risk.py}
+touch Quantum_t/api/{__init__.py,server.py,schemas.py}
+touch Quantum_t/cli/{__init__.py,main.py}
+touch Quantum_t/infra/{docker-compose.yml,Dockerfile,mt5_bridge.py,vps_manager.py}
+touch Quantum_t/tests/{__init__.py,test_portfolio.py,test_option.py}
+touch Quantum_t/examples/{basic_qaoa.ipynb,black_scholes_qiskit.py}
+touch Quantum_t/docs/{architecture.md,api.md}
+</pre>
+
+<hr/>
+
+<h2>File Contents (copy each block into the matching file)</h2>
+
+<h3>README.md</h3>
+<pre>
+# Quantum_t – Quantum Finance Toolkit for MT5
+
+Skeleton repo. Fill the placeholders and ship to MQL5 marketplace.
+
+## Structure
+- `core/`      → quantum finance primitives
+- `api/`       → FastAPI endpoints
+- `cli/`       → command-line interface
+- `infra/`     → Docker / MT5 bridge / VPS scaling
+- `tests/`     → pytest suite
+- `examples/`  → Jupyter + Python demos
+- `docs/`      → architecture & API docs
+
+## Quick Start
+```bash
+pip install -r requirements.txt
+docker compose up -d
+python -m cli.main --help
